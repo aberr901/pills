@@ -52,7 +52,7 @@
 
         header {
             text-align: center;
-            padding: 60px 20px;
+            padding: 60px 20px 40px 20px;
             animation: fadeInDown 1s ease-out;
         }
 
@@ -277,11 +277,78 @@
         .pill-green { background: linear-gradient(135deg, #95e1d3, #6dd5ed); }
         .pill-pink { background: linear-gradient(135deg, #f093fb, #f5576c); }
 
+        .audio-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .audio-section h2 {
+            color: #764ba2;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .audio-players {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .player-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .player-card h3 {
+            color: #764ba2;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .album-art {
+            width: 100%;
+            max-width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .player-card audio {
+            width: 100%;
+            border-radius: 25px;
+            margin-top: 10px;
+        }
+
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             .subtitle { font-size: 1.2rem; }
             .hero-section { padding: 30px 20px; }
             .lyrics { font-size: 1.1rem; }
+            .audio-section { padding: 25px 15px; }
+            .audio-players { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -297,19 +364,43 @@
         <header>
             <h1>💊 Wonder Pills 🎵</h1>
             <p class="subtitle">🎶 Tiny Balls of Joy for Your Soul 🎶</p>
-            
-            <!-- Audio Player -->
-            <div style="margin-top: 30px; display: flex; justify-content: center;">
-                <audio controls autoplay loop style="width: 100%; max-width: 500px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
-                    <source src="https://aberr901.github.io/pills/voice_message_2025-12-06T2054Z.m4a" type="audio/mp4">
-                    <source src="https://aberr901.github.io/pills/voice_message_2025-12-06T2054Z.m4a" type="audio/m4a">
-                    Your browser does not support the audio element.
-                </audio>
-            </div>
-            <p style="color: white; margin-top: 15px; font-size: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
-                🎧 Listen to the Wonder Pills Song! 🎶
-            </p>
         </header>
+
+        <div class="audio-section">
+            <h2>🎧 The Wonder Pills Songs Collection 🎧</h2>
+            <p style="text-align: center; color: #555; font-size: 1.1rem; margin-bottom: 20px;">
+                Choose your favorite version or play them all! Each one brings its own magical vibe. ✨
+            </p>
+            
+            <div class="audio-players">
+                <div class="player-card">
+                    <div class="album-art">💊</div>
+                    <h3>🎵 Version 1 - Original</h3>
+                    <audio controls loop id="audio1">
+                        <source src="./voice_message_2025-12-06T2054Z.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+
+                <div class="player-card">
+                    <div class="album-art">🌟</div>
+                    <h3>🎵 Version 2 - Remix</h3>
+                    <audio controls loop id="audio2">
+                        <source src="./voice_message_2025-12-06T2054Z (1).mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+
+                <div class="player-card">
+                    <div class="album-art">✨</div>
+                    <h3>🎵 Version 3 - Extended</h3>
+                    <audio controls loop id="audio3">
+                        <source src="./voice_message_2025-12-06T2054Z (2).mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
 
         <div class="hero-section">
             <h2>✨ The Song of Emotional Liberation ✨</h2>
@@ -408,6 +499,21 @@
     </div>
 
     <script>
+        // Try to load album art from audio metadata
+        const audioElements = document.querySelectorAll('audio');
+        audioElements.forEach((audio, index) => {
+            audio.addEventListener('loadedmetadata', function() {
+                const albumArt = this.parentElement.querySelector('.album-art');
+                
+                // Try to extract cover art using jsmediatags (if available)
+                // For now, we use emoji placeholders as fallback
+                if (audio.readyState >= 2) {
+                    // Audio metadata is loaded
+                    console.log(`Audio ${index + 1} loaded successfully`);
+                }
+            });
+        });
+
         // Add interactive click effects to pills
         document.querySelectorAll('.pill-item').forEach(pill => {
             pill.addEventListener('click', function() {
@@ -438,8 +544,4 @@
         });
     </script>
 </body>
-
 </html>
-
-
-
