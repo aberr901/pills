@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wonder Pills 🎵 - Forget Your Misery!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating pills animation */
+        .floating-pill {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-100px) translateX(50px) rotate(90deg); }
+            50% { transform: translateY(-50px) translateX(-50px) rotate(180deg); }
+            75% { transform: translateY(-150px) translateX(100px) rotate(270deg); }
+        }
+
+        .pill-1 { background: #ff6b6b; top: 10%; left: 10%; animation-delay: 0s; }
+        .pill-2 { background: #4ecdc4; top: 20%; left: 80%; animation-delay: 2s; }
+        .pill-3 { background: #ffe66d; top: 60%; left: 15%; animation-delay: 4s; }
+        .pill-4 { background: #95e1d3; top: 70%; left: 85%; animation-delay: 6s; }
+        .pill-5 { background: #ff8787; top: 40%; left: 50%; animation-delay: 3s; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px 40px 20px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #ffe66d;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.2s; }
+        .card:nth-child(2) { animation-delay: 0.4s; }
+        .card:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .card h2 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .card p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .hero-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            margin: 40px 0;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out 0.8s;
+            animation-fill-mode: both;
+        }
+
+        .hero-section h2 {
+            font-size: 2.5rem;
+            color: #764ba2;
+            margin-bottom: 30px;
+        }
+
+        .lyrics {
+            font-size: 1.3rem;
+            line-height: 2;
+            color: #333;
+            font-style: italic;
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 15px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 40px;
+            font-size: 1.5rem;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            animation: wiggle 1s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        .cta-button:hover {
+            transform: scale(1.1) rotate(0deg);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            animation: none;
+        }
+
+        .testimonial {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: fadeInUp 1s ease-out 1s;
+            animation-fill-mode: both;
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            color: #333;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-author {
+            font-size: 1rem;
+            color: #555;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            font-size: 0.9rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .pill-showcase {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .pill-item {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: spin 3s linear infinite;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .pill-item:hover {
+            transform: scale(1.3);
+            animation-play-state: paused;
+        }
+
+        .pill-red { background: linear-gradient(135deg, #ff6b6b, #ee5a6f); }
+        .pill-blue { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
+        .pill-yellow { background: linear-gradient(135deg, #ffe66d, #ffd93d); }
+        .pill-green { background: linear-gradient(135deg, #95e1d3, #6dd5ed); }
+        .pill-pink { background: linear-gradient(135deg, #f093fb, #f5576c); }
+
+        .audio-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .audio-section h2 {
+            color: #764ba2;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .audio-players {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .player-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .player-card h3 {
+            color: #764ba2;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .album-art {
+            width: 100%;
+            max-width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .player-card audio {
+            width: 100%;
+            border-radius: 25px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.2rem; }
+            .hero-section { padding: 30px 20px; }
+            .lyrics { font-size: 1.1rem; }
+            .audio-section { padding: 25px 15px; }
+            .audio-players { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating background pills -->
+    <div class="floating-pill pill-1"></div>
+    <div class="floating-pill pill-2"></div>
+    <div class="floating-pill pill-3"></div>
+    <div class="floating-pill pill-4"></div>
+    <div class="floating-pill pill-5"></div>
+
+    <div class="container">
+        <header>
+            <h1>💊 Wonder Pills 🎵</h1>
+            <p class="subtitle">🎶 Tiny Balls of Joy for Your Soul 🎶</p>
+        </header>
+
+        <div class="audio-section">
+            <h2>🎧 The Wonder Pills Songs Collection 🎧</h2>
+            <p style="text-align: center; color: #555; font-size: 1.1rem; margin-bottom: 20px;">
+                Choose your favorite version or play them all! Each one brings its own magical vibe. ✨
+            </p>
+            
+            <div class="audio-players">
+                <div class="player-card">
+                    <div class="album-art">💊</div>
+                    <h3>🎵 Version 1 - Original</h3>
+                    <audio controls loop id="audio1">
+                        <source src="./voice_message_2025-12-06T2054Z.m4a" type="audio/mp4">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+
+                <div class="player-card">
+                    <div class="album-art">🌟</div>
+                    <h3>🎵 Version 2 - Remix</h3>
+                    <audio controls loop id="audio2">
+                        <source src="./voice_message_2025-12-06T2054Z (1).mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+
+                <div class="player-card">
+                    <div class="album-art">✨</div>
+                    <h3>🎵 Version 3 - Extended</h3>
+                    <audio controls loop id="audio3">
+                        <source src="./voice_message_2025-12-06T2054Z (2).mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-section">
+            <h2>✨ The Song of Emotional Liberation ✨</h2>
+            <div class="lyrics">
+                🎵 <em>"Little round pills, so small and bright,<br>
+                Take away my worries, make everything right!<br>
+                Pop one down, forget your frown,<br>
+                These tiny balls will turn it all around!"</em> 🎵
+            </div>
+            <p style="font-size: 1.2rem; color: #555; margin-top: 20px;">
+                Discover the magical journey from misery to bliss, one tiny ball at a time! 
+                Because sometimes, all you need is a little round friend to remind you that 
+                life is too short to be stressed out! 😄
+            </p>
+        </div>
+
+        <div class="pill-showcase">
+            <div class="pill-item pill-red">😊</div>
+            <div class="pill-item pill-blue">🌟</div>
+            <div class="pill-item pill-yellow">✨</div>
+            <div class="pill-item pill-green">💫</div>
+            <div class="pill-item pill-pink">🎉</div>
+        </div>
+
+        <div class="main-content">
+            <div class="card">
+                <div class="card-icon">🎭</div>
+                <h2>From Drama to Dharma</h2>
+                <p>
+                    Watch as life's big problems become tiny giggles! These small spheres 
+                    of serenity transform your mental theater from tragedy to comedy in minutes. 
+                    Who knew happiness could be so... round?
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🌈</div>
+                <h2>Rainbow Road to Peace</h2>
+                <p>
+                    Available in five fabulous colors, each one a different flavor of "forget about it!" 
+                    Red for rage-be-gone, blue for bye-bye blues, yellow for mellow fellow, 
+                    green for serene scene, and pink for "in-the-pink" of health!
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🚀</div>
+                <h2>Instant Transportation</h2>
+                <p>
+                    These tiny balls don't just work magic—they work FAST! One moment you're 
+                    drowning in deadlines, the next you're floating on cloud nine. 
+                    It's like Uber for your emotions, but way more reliable!
+                </p>
+            </div>
+        </div>
+
+        <div class="testimonial">
+            <p class="testimonial-text">
+                "I used to carry the weight of the world on my shoulders. Now I just carry 
+                these adorable little balls in my pocket! My stress went from 'screaming into 
+                a pillow' to 'singing in the shower' real quick!" 
+            </p>
+            <p class="testimonial-author">— Happy Human #42 🎈</p>
+        </div>
+
+        <div class="testimonial">
+            <p class="testimonial-text">
+                "These small balls are BIG on results! I went from midnight anxiety spirals 
+                to morning dance parties. 10/10 would recommend to my therapist!" 
+            </p>
+            <p class="testimonial-author">— Formerly Stressed Steve 😎</p>
+        </div>
+
+        <div class="hero-section">
+            <h2>🎪 The Wonder Pills Promise 🎪</h2>
+            <p style="font-size: 1.3rem; color: #333; line-height: 1.8; margin: 20px 0;">
+                <strong>🌟 Forget your misery!</strong> (at least for a little while)<br>
+                <strong>💃 Dance like nobody's judging!</strong> (because they're not)<br>
+                <strong>😄 Smile for no reason!</strong> (the best kind of smile)<br>
+                <strong>🎉 Celebrate the small stuff!</strong> (like these small balls)<br>
+                <strong>✨ Remember: Life's too short to be serious!</strong>
+            </p>
+            
+            <button class="cta-button" onclick="alert('🎉 Welcome to the Wonder Pills family! Remember: Keep it light, keep it bright, and keep those tiny balls of joy nearby! 💊✨')">
+                Join the Joy Revolution! 🚀
+            </button>
+        </div>
+
+        <footer>
+            <p>💊 Wonder Pills™ - Because Sometimes You Just Need a Little Ball of Happiness 💊</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.8;">
+                ⚠️ Disclaimer: This is a humorous artistic presentation. For real emotional destress, 
+                please seek professional help, practice mindfulness, or call a good friend! 💚
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Try to load album art from audio metadata
+        const audioElements = document.querySelectorAll('audio');
+        audioElements.forEach((audio, index) => {
+            audio.addEventListener('loadedmetadata', function() {
+                const albumArt = this.parentElement.querySelector('.album-art');
+                
+                // Try to extract cover art using jsmediatags (if available)
+                // For now, we use emoji placeholders as fallback
+                if (audio.readyState >= 2) {
+                    // Audio metadata is loaded
+                    console.log(`Audio ${index + 1} loaded successfully`);
+                }
+            });
+        });
+
+        // Add interactive click effects to pills
+        document.querySelectorAll('.pill-item').forEach(pill => {
+            pill.addEventListener('click', function() {
+                const messages = [
+                    '🎉 Stress level: Dropping!',
+                    '✨ Happiness level: Rising!',
+                    '💫 Worries: Evaporating!',
+                    '🌈 Mood: Improving!',
+                    '😊 Smile: Activated!'
+                ];
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                alert(randomMessage);
+            });
+        });
+
+        // Add parallax effect to floating pills
+        document.addEventListener('mousemove', (e) => {
+            const pills = document.querySelectorAll('.floating-pill');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            pills.forEach((pill, index) => {
+                const speed = (index + 1) * 0.5;
+                const xMove = (x - 0.5) * 50 * speed;
+                const yMove = (y - 0.5) * 50 * speed;
+                pill.style.transform = `translate(${xMove}px, ${yMove}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
